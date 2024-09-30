@@ -6,7 +6,7 @@ covs <- read.csv(here('Original', 'covariates.csv'))
 source(here('scripts', 'create_disaster.R')) 
 source(here('scripts', 'derived_conflictdata.R')) 
 source(here('scripts', 'mergedmort_data.R')) 
-#not sure?
+#renaming the first column in disaster and merged mortality datasets as 'year'
 colnames(clean_disaster_data)[1] <- 'year'
 colnames(mergedmort_data)[1] <- 'year' 
 
