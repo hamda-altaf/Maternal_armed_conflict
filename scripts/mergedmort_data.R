@@ -28,9 +28,8 @@ library(countrycode)
 mergedmort_data$ISO <- countrycode(mergedmort_data$Country.Name,
                             origin = "country.name",
                             destination = "iso3c")
-#what is this for? 
+#removing the first column 
 mergedmort_data <- mergedmort_data[,-1]
-View(mergedmort_data)
 #read in the disaster dataset
 disasterdata <- read.csv(here("Original", "disaster.csv"), header = TRUE)
 # Filter the data for the years 2000 to 2019 and disaster types "Earthquake" and "Drought"
