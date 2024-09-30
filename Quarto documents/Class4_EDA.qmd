@@ -1,7 +1,7 @@
 ---
 title: "Class4_EDA"
 format: pdf
-editor: visual
+editor: source
 ---
 
 ## Quarto
@@ -24,3 +24,92 @@ You can add options to executable code like this
 ```
 
 The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+install.packages('tinytex')
+tinytex::install_tinytex()
+library(tidyverse)
+library(dplyr) 
+library(here)
+here() 
+analyticaldata <- read.csv(here("analytical_data", "analyticaldata.csv"), header = TRUE)
+analyticaldata
+```
+```{r}
+analyticaldata |>
+  head()
+```
+```{r}
+analyticaldata |>
+  glimpse()
+```
+
+```{r}
+analyticaldata |>
+  slice_sample(n=6)
+```
+```{r}
+analyticaldata |>
+ summary()
+```
+##assign 0s to NAs for conflict data
+
+```{r}
+analyticaldata$conflict[is.na(analyticaldata$conflict)] <- 0
+```
+
+
+```{r}
+analyticaldata %>% 
+  group_by(conflict) %>%
+ summarise(mean = mean(Matmor, na.rm = TRUE)) %>%
+  arrange(desc(mean))
+```
+The mean for the maternal mortality is higher for an armed conflict compared to no conflict. 
+```{r}
+analyticaldata %>% 
+  group_by(conflict) %>%
+ summarise(mean = mean(Infantmor, na.rm = TRUE)) %>%
+  arrange(desc(mean))
+```
+The mean for the infant mortality is higher for an armed conflict compared to no conflict.
+
+```{r}
+analyticaldata %>% 
+  group_by(conflict) %>%
+ summarise(mean = mean(Neonatmor, na.rm = TRUE)) %>%
+  arrange(desc(mean))
+```
+The mean for the neonatal mortality is higher for an armed conflict compared to no conflict.
+```{r}
+analyticaldata %>% 
+  group_by(conflict) %>%
+ summarise(mean = mean(Under5mor, na.rm = TRUE)) %>%
+  arrange(desc(mean))
+```
+The mean for the under 5 mortality is higher for an armed conflict compared to no conflict.
+```{r}
+analyticaldata |>
+  ggplot(aes(x = Matmor)) +
+  geom_histogram(bins = 30)
+
+analyticaldata |>
+  ggplot(aes(x = Matmor)) +
+  geom_histogram(bins = 30) +
+  scale_x_log10()
+```
+
+
+```{r}
+analyticaldata |>
+  ggplot() +
+  geom_col(
+    aes(
+      x = conflict,
+      y = Matmor, 
+      fill = region
+    ),
+    position = "dodge"
+  ) 
+```
+
