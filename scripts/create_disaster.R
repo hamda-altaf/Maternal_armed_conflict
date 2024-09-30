@@ -7,4 +7,4 @@ subset_data <- disasterdata %>% filter(Year >= 2000 & Year <= 2019 & Disaster.Ty
 names(disasterdata)
 subset_data <- subset_data %>% select(Year, ISO, Disaster.Type)
 subset_data <- subset_data %>% mutate(drought = ifelse(Disaster.Type == "Drought", 1, 0),earthquake = ifelse(Disaster.Type == "Earthquake", 1, 0))
-clean_disaster_data <- subset_data %>% group_by(Year, ISO) %>% summarize(drought = max(drought),earthquake = max(earthquake)) %>% ungroup()
+summarized_data <- subset_data %>% group_by(Year, ISO) %>% summarize(drought = max(drought),earthquake = max(earthquake)) %>% ungroup()
