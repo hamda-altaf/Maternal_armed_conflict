@@ -26,14 +26,11 @@ You can add options to executable code like this
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ```{r}
-install.packages('tinytex')
-tinytex::install_tinytex()
 library(tidyverse)
 library(dplyr) 
 library(here)
 here() 
 analyticaldata <- read.csv(here("analytical_data", "analyticaldata.csv"), header = TRUE)
-analyticaldata
 ```
 ```{r}
 analyticaldata |>
