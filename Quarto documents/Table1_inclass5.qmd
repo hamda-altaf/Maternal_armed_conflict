@@ -1,0 +1,59 @@
+---
+title: "Table1_armed conflict"
+author: "Hamda Altaf"
+format: pdf
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+library(tidyverse)
+library(dplyr) 
+library(here)
+here() 
+library(table1)
+analyticaldata <- read.csv(here("analytical_data", "analyticaldata.csv"), header = TRUE)
+analyticaldata$earthquake <- as.factor(analyticaldata$earthquake)
+analyticaldata$drought <- as.factor(analyticaldata$drought)
+analyticaldata$conflict <- as.factor(analyticaldata$conflict)
+label(analyticaldata$conflict) <- "Armed Conflict"
+label(analyticaldata$Matmor) <- "Maternal mortality rate per 1,000 live births"
+label(analyticaldata$Infantmor) <- "Infant mortality rate per 1,000 live births"
+label(analyticaldata$Under5mor) <- "Under 5 mortality rate per 1,000 live births"
+label(analyticaldata$Neonatmor) <- "Neonatal mortality rate per 1,000 live births"
+label(analyticaldata$male_edu) <- "Male education"
+label(analyticaldata$gdp1000) <- "GDP per capita"
+label(analyticaldata$drought) <- "Drought"
+label(analyticaldata$earthquake) <- "Earthquake"
+
+
+analyticaldata_2000 <- analyticaldata %>%
+  filter(year == 2000)
+
+table1( ~ Matmor + Infantmor + Under5mor + Neonatmor + male_edu + gdp1000 + drought + earthquake| conflict, data = analyticaldata_2000, caption = "Table of baseline characteristics",
+       render.continuous = function(x) {
+         sprintf("%.2f (%.2f)", mean(x, na.rm = TRUE), sd(x, na.rm = TRUE))
+       }, overall=c(left="Total"))
+print(table1)
+
+```
+
+```{r}
+
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
