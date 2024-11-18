@@ -139,3 +139,4 @@ neonatbootout
 #Interpretation: If we were to repeat the bootstrap process many times, 
 #95% of the (,) intervals would contain the true difference in medians of "mortality variable" 
 #for armed conflict present vs absent.
+#we need to report the bias correctly 
